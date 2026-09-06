@@ -65,6 +65,18 @@ sealed interface ConnectionFailure {
         override val localizationKey = "connection_error_pairing_unavailable"
     }
 
+    data class PairingStatusRejected(val code: String) : ConnectionFailure {
+        override val localizationKey = "connection_error_pairing_status_rejected"
+    }
+
+    data object PairingStatusResponseInvalid : ConnectionFailure {
+        override val localizationKey = "connection_error_pairing_status_response_invalid"
+    }
+
+    data object PairingStatusUnavailable : ConnectionFailure {
+        override val localizationKey = "connection_error_pairing_status_unavailable"
+    }
+
     data class RealtimeHandshakeRejected(val code: String) : ConnectionFailure {
         override val localizationKey = "connection_error_realtime_handshake_rejected"
     }

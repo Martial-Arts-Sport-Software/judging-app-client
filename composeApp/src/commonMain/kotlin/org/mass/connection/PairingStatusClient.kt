@@ -6,6 +6,7 @@ import io.ktor.client.statement.bodyAsText
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.Url
 import io.ktor.http.appendPathSegments
+import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
@@ -32,7 +33,8 @@ class PairingStatusClient(
             response.status.value !in 200..299 -> PairingStatusResult.Unavailable
             else -> decode(response.bodyAsText())
         }
-    } catch (_: Exception) {
+    } catch (exception: Exception) {
+        if (exception is CancellationException) throw exception
         PairingStatusResult.Unavailable
     }
 
