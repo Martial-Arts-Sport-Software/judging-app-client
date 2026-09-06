@@ -57,7 +57,7 @@ Shared/Android/iOS targets собираются в CI, формулы текущ
 
 ## 3. Недели 1-2: discovery и realtime spike
 
-- [x] Управлять единственной mDNS discovery job и её lifecycle.
+- [x] Управлять единственной mDNS discovery job и её lifecycle (`CLI-012`; shared rescan/cancellation tests).
 - [x] Показывать понятные имя площадки, адрес и статус (`CLI-013`; resolved и resolving состояния покрыты shared unit tests).
 - [ ] Реализовать HTTP metadata/handshake, protocol version/capability check и manual host/IP fallback (resolved mDNS и manual host/IP вызывают shared HTTP client, validation domain model и pairing flow; TLS trust UX pending).
 - [ ] Реализовать WebSocket connect, heartbeat и typed envelope (shared Ktor handshake, credential storage, typed command envelope и terminal ACK/rejection outbox handling готовы; lifecycle wiring, heartbeat and reconnect pending).

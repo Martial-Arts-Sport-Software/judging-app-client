@@ -41,7 +41,7 @@
 |---------|-----------|---------|----------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | CLI-010 | Must      | Partial | Клиент обнаруживает `_u-judge._tcp.local.`                     | Server появляется без ручного IP в общей LAN                                          |
 | CLI-011 | Must      | Partial | Найденные servers дедуплицируются и удаляются при mDNS removed | В списке нет дублей и заведомо недоступных записей                                    |
-| CLI-012 | Must      | Planned | Повторный scan отменяет или переиспользует предыдущую job      | Многократное нажатие Search не создаёт несколько collectors                           |
+| CLI-012 | Must      | Implemented | Повторный scan отменяет предыдущую job до запуска новой; lifecycle shared-tested | Многократное нажатие Search не создаёт несколько collectors                           |
 | CLI-013 | Must      | Implemented | Судья выбирает площадку по понятному имени                     | UI показывает имя, адрес и статус; resolving площадка недоступна для выбора           |
 | CLI-014 | Must      | Partial | Resolved mDNS endpoint проходит shared HTTP metadata validation; manual fallback использует ту же validation/pairing chain, TLS trust UX pending | Несовместимый server отклоняется с локализованной причиной                            |
 | CLI-015 | Must      | Partial | Выбор validated mDNS server отправляет pairing request с device identity, нормализованной фамилией судьи и platform; TLS pending | Server видит pending device и фамилию                                                 |
