@@ -88,7 +88,7 @@ outbox только после terminal ACK.
 
 ## 5. Недели 4-5: Kerugi vertical slice
 
-- Подключить четыре текущие combat buttons к typed events.
+- Подключить четыре текущие combat buttons к typed events (offline entry в Kerugi/Tanbon заблокирован, `CLI-004`; online session gating pending).
 - Получать current bout, blue/red labels и session state от server.
 - Блокировать ввод вне `running`.
 - Показывать pending/accepted/rejected feedback без ложного подтверждения.
