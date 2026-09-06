@@ -30,7 +30,7 @@
 | CLI-001 | Must      | Partial | Клиент запускается на Android и iPhone в landscape        | Critical-flow smoke test проходит на физических устройствах pilot                  |
 | CLI-002 | Must      | Partial | Судья вводит фамилию до выбора режима                     | Пустое/пробельное значение не позволяет продолжить                                 |
 | CLI-003 | Must      | Partial | Клиент поддерживает online и offline                      | Выбранный режим явно виден и не меняется из-за навигации                           |
-| CLI-004 | Must      | Partial | Offline разрешает только технические дисциплины           | Kerugi/Tanbon заблокированы с объяснением причины                                  |
+| CLI-004 | Must      | Implemented | Offline разрешает только технические дисциплины; Kerugi/Tanbon disabled с локализованной причиной | Kerugi/Tanbon заблокированы с объяснением причины                                  |
 | CLI-005 | Must      | Partial | Shared realtime handshake переводит pairing-pending state в connected только после typed server acceptance и authenticated clock sync; credential storage and UI wiring pending | Простого выбора mDNS service недостаточно для connected state                      |
 | CLI-006 | Should    | Planned | Post-v1 интерфейс переключается между RU/EN               | Все строки текущего flow локализованы; v1 Pilot требует русский интерфейс          |
 | CLI-007 | Should    | Planned | Фамилия, язык и локальные черновики переживают перезапуск | После restart значения восстановлены из локального persistence                     |
@@ -74,7 +74,7 @@
 | CLI-035 | Must      | Partial | Realtime command client journals the complete command before socket send; physical tap wiring and app-kill proof pending | App kill до ACK не теряет событие                                      |
 | CLI-036 | Must      | Partial | Shared command transport applies terminal ACK/rejection to outbox; UI feedback pending | Состояние каждого недавнего события понятно судье                      |
 | CLI-037 | Must      | Planned | Warning/attention отправляется отдельно от scoring      | Server получает judge, device, session и timestamp; счёт не меняется   |
-| CLI-038 | Must      | Planned | Offline Kerugi/Tanbon не генерирует официальные события | Боевые кнопки недоступны без server session                            |
+| CLI-038 | Must      | Partial | Offline исключает выбор Kerugi/Tanbon; online session gating combat controls pending | Боевые кнопки недоступны без server session                            |
 | CLI-039 | Should    | Planned | У кнопок есть настраиваемый haptic feedback             | Feedback на tap не выдаётся за ACK; accessibility settings учитываются |
 
 ## 6. Технические дисциплины
