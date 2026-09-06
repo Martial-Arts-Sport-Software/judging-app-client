@@ -49,6 +49,11 @@ object Localization {
             "discipline_freestyle_pair" to "Pair freestyle",
             "discipline_freestyle_group" to "Group freestyle",
             "discipline_offline_combat_unavailable" to "Kerugi and Tanbon require an online server session.",
+            "combat_blue_head" to "Blue participant: head",
+            "combat_red_head" to "Red participant: head",
+            "combat_blue_body" to "Blue participant: body",
+            "combat_red_body" to "Red participant: body",
+            "combat_cross" to "Neutral cross",
 
             "category_title" to "Choose category",
             "category_juniors" to "Younger juniors / cadets",
@@ -161,6 +166,11 @@ object Localization {
             "discipline_freestyle_pair" to "Поединок постановочный - пара",
             "discipline_freestyle_group" to "Поединок постановочный - группа",
             "discipline_offline_combat_unavailable" to "Kerugi и Танбон доступны только при подключении к серверной сессии.",
+            "combat_blue_head" to "Синий участник: голова",
+            "combat_red_head" to "Красный участник: голова",
+            "combat_blue_body" to "Синий участник: корпус",
+            "combat_red_body" to "Красный участник: корпус",
+            "combat_cross" to "Нейтральный крест",
 
             "category_title" to "Выберите категорию",
             "category_juniors" to "Младшие юноши / Кадеты",

@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -38,12 +40,14 @@ fun CombatButtonComponent(
     position: CombatButtonPositions,
     color: Colors,
     icon: DrawableResource,
+    semanticLabel: String,
     onclick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     OutlinedButton(
         modifier = modifier
             .fillMaxSize()
+            .semantics { contentDescription = semanticLabel }
             .graphicsLayer {
                 if (position == CombatButtonPositions.RIGHT)
                     scaleX = -1f
