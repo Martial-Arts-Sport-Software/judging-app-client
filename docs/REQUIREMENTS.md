@@ -102,10 +102,10 @@
 |---------|-----------|---------|------------------------------------------------------------|------------------------------------------------------------------------|
 | CLI-060 | Must      | Partial | Shared JSON journal сохраняется в Android SharedPreferences/iOS NSUserDefaults; event wiring and app-kill integration proof pending | Process death не очищает неподтверждённые events                       |
 | CLI-061 | Must      | Partial | Realtime command retry reuses the durable event ID; reconnect/server integration evidence pending | Server применяет событие не более одного раза                          |
-| CLI-062 | Must      | Partial | Shared outbox uses ordered bounded exponential backoff; transport fault injection pending | Client не создаёт request storm при недоступном server                 |
+| CLI-062 | Must      | Partial | Shared outbox uses ordered bounded exponential backoff; command-boundary drop/reorder fault-injection tests ready, transport integration pending | Client не создаёт request storm при недоступном server                 |
 | CLI-063 | Must      | Planned | WebSocket heartbeat обнаруживает разрыв                    | UI переходит в reconnecting в ограниченное protocol timeout время      |
 | CLI-064 | Must      | Planned | После reconnect client отправляет cursor и получает resync | Session state сходится до разрешения новых действий                    |
-| CLI-065 | Must      | Partial | Shared command ACK removes only its matching durable event; transport reorder test pending | Поздний ACK не удаляет более новое pending event                       |
+| CLI-065 | Must      | Partial | Shared command ACK removes only its matching durable event; command-boundary reorder test ready, transport runtime integration pending | Поздний ACK не удаляет более новое pending event                       |
 | CLI-066 | Must      | Partial | Terminal command rejection is persisted and excluded from retry; UI feedback pending | Outbox отмечает final rejection и показывает действие пользователю     |
 | CLI-067 | Must      | Planned | Logout/смена server не удаляет pending events молча        | Требуется успешная доставка или явное подтверждённое discard с аудитом |
 | CLI-068 | Must      | Partial | Shared `ClockSyncClient` выполняет один typed four-timestamp exchange через authenticated realtime socket во время initial handshake; reconnect wiring pending | Four-timestamp exchange оценивает offset/round-trip; combat timestamp не полагается только на device wall clock |
