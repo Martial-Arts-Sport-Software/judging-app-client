@@ -72,6 +72,14 @@ object DisciplineSelectScreen: Screen {
 
             Spacer(Modifier.height(20.dp))
 
+            if (State.isOffline) {
+                Text(
+                    text = Localization.getString("discipline_offline_combat_unavailable"),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(bottom = 12.dp)
+                )
+            }
+
             Box(
                 Modifier
                     .fillMaxWidth(0.8f)
@@ -116,6 +124,7 @@ object DisciplineSelectScreen: Screen {
                                 text = Localization.getString(first.value)
                                     .uppercase(),
                                 onclick = firstOnclick,
+                                enabled = isDisciplineAvailable(first, State.isOffline),
                                 modifier = Modifier
                                     .weight(1f)
                                     .fillMaxHeight(0.8f)
@@ -142,6 +151,7 @@ object DisciplineSelectScreen: Screen {
                                     text = Localization.getString(second.value)
                                         .uppercase(),
                                     onclick = secondOnclick,
+                                    enabled = isDisciplineAvailable(second, State.isOffline),
                                     modifier = Modifier
                                         .weight(1f)
                                         .fillMaxHeight(0.8f)

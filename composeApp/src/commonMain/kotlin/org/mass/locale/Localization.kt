@@ -48,6 +48,7 @@ object Localization {
             "discipline_freestyle_weapon" to "Freestyle with weapon",
             "discipline_freestyle_pair" to "Pair freestyle",
             "discipline_freestyle_group" to "Group freestyle",
+            "discipline_offline_combat_unavailable" to "Kerugi and Tanbon require an online server session.",
 
             "category_title" to "Choose category",
             "category_juniors" to "Younger juniors / cadets",
@@ -159,6 +160,7 @@ object Localization {
             "discipline_freestyle_weapon" to "Комплекс свободный",
             "discipline_freestyle_pair" to "Поединок постановочный - пара",
             "discipline_freestyle_group" to "Поединок постановочный - группа",
+            "discipline_offline_combat_unavailable" to "Kerugi и Танбон доступны только при подключении к серверной сессии.",
 
             "category_title" to "Выберите категорию",
             "category_juniors" to "Младшие юноши / Кадеты",
