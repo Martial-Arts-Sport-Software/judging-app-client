@@ -6,8 +6,10 @@ import io.ktor.client.engine.mock.respond
 import io.ktor.client.request.HttpRequestData
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.Url
+import kotlinx.coroutines.CancellationException
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlinx.coroutines.test.runTest
 
 class PairingStatusClientTest {
@@ -78,6 +80,16 @@ class PairingStatusClientTest {
         )
 
         assertEquals(PairingStatusResult.Unavailable, client.fetch("request-1"))
+    }
+
+    @Test
+    fun preservesCancellationOfThePairingStatusRequest() = runTest {
+        val client = PairingStatusClient(
+            HttpClient(MockEngine { throw CancellationException("screen left") }),
+            Url("http://court.local")
+        )
+
+        assertFailsWith<CancellationException> { client.fetch("request-1") }
     }
 
     private fun clientReturning(response: String): PairingStatusClient = PairingStatusClient(

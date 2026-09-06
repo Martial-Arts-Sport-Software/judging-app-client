@@ -28,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.appstractive.dnssd.key
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.mass.State
 import org.mass.discovery.DiscoveryStatus
@@ -42,6 +43,11 @@ import org.mass.connection.ConnectionState
 import org.mass.connection.PairingClient
 import org.mass.connection.PairingFlow
 import org.mass.connection.PairingRequest
+import org.mass.connection.PairingResult
+import org.mass.connection.PairingStatusClient
+import org.mass.connection.PairingStatusFlow
+import org.mass.connection.PairingStatusPolling
+import org.mass.connection.PairingStatusResult
 import org.mass.connection.createHttpClient
 import org.mass.connection.metadataEndpoint
 import org.mass.connection.manualServerEndpoint
@@ -67,10 +73,6 @@ object ServerConnectionScreen : Screen {
         } }
 
         val coroutineScope = rememberCoroutineScope()
-
-        DisposableEffect(Unit) {
-            onDispose(ServerConnectionUtil::stopScan)
-        }
 
         Column(
             modifier = Modifier
@@ -104,9 +106,20 @@ object ServerConnectionScreen : Screen {
             var manualHost by remember { mutableStateOf("") }
             var manualPort by remember { mutableStateOf("8080") }
             var manualEndpointError by remember { mutableStateOf(false) }
+            var pairingStatus by remember { mutableStateOf<PairingStatusResult?>(null) }
+            var pairingJob by remember { mutableStateOf<Job?>(null) }
+
+            DisposableEffect(Unit) {
+                onDispose {
+                    pairingJob?.cancel()
+                    ServerConnectionUtil.stopScan()
+                }
+            }
 
             ButtonComponent(
                 onclick = {
+                    pairingJob?.cancel()
+                    pairingStatus = null
                     ServerConnectionUtil.scan(coroutineScope)
                 },
                 text = Localization.getString("connection_search_btn")
@@ -137,9 +150,11 @@ object ServerConnectionScreen : Screen {
                         is ManualServerEndpointResult.Valid -> {
                             manualEndpointError = false
                             selectManualServer(result)
-                            coroutineScope.launch {
+                            pairingJob?.cancel()
+                            pairingStatus = null
+                            pairingJob = coroutineScope.launch {
                                 createHttpClient().use { httpClient ->
-                                    PairingFlow(
+                                    val pairingResult = PairingFlow(
                                         ServerMetadataClient(httpClient, result.endpoint),
                                         PairingClient(httpClient, result.endpoint)
                                     ).connect(
@@ -150,6 +165,7 @@ object ServerConnectionScreen : Screen {
                                         ),
                                         connection
                                     )
+                                    pairingStatus = pairingResult.pollStatus(httpClient, result.endpoint)
                                 }
                             }
                         }
@@ -163,7 +179,7 @@ object ServerConnectionScreen : Screen {
                     style = MaterialTheme.typography.bodyMedium
                 )
             }
-            connectionStatus()?.let { status ->
+            connectionStatus(pairingStatus)?.let { status ->
                 Text(
                     text = status,
                     style = MaterialTheme.typography.bodyLarge,
@@ -202,12 +218,14 @@ object ServerConnectionScreen : Screen {
                                 text = "${service.name}\n${Localization.getString("connection_court_address")}: ${service.addresses.joinToString()}\n$status",
                                 onclick = {
                                     selectServer(service)
-                                    coroutineScope.launch {
+                                    pairingJob?.cancel()
+                                    pairingStatus = null
+                                    pairingJob = coroutineScope.launch {
                                         val address = service.addresses.firstOrNull()
                                         if (address != null) {
                                             createHttpClient().use { httpClient ->
                                                 val endpoint = metadataEndpoint(address, service.port)
-                                                PairingFlow(
+                                                val pairingResult = PairingFlow(
                                                     ServerMetadataClient(httpClient, endpoint),
                                                     PairingClient(httpClient, endpoint)
                                                 ).connect(
@@ -218,6 +236,7 @@ object ServerConnectionScreen : Screen {
                                                     ),
                                                     connection
                                                 )
+                                                pairingStatus = pairingResult.pollStatus(httpClient, endpoint)
                                             }
                                         }
                                     }
@@ -231,11 +250,24 @@ object ServerConnectionScreen : Screen {
         }
     }
 
+    private suspend fun PairingResult?.pollStatus(
+        httpClient: io.ktor.client.HttpClient,
+        endpoint: io.ktor.http.Url
+    ): PairingStatusResult? = when (this) {
+        is PairingResult.Pending -> PairingStatusFlow(
+            PairingStatusPolling(PairingStatusClient(httpClient, endpoint)::fetch)
+        ).awaitStatus(requestId, connection)
+        else -> null
+    }
+
     @Composable
-    private fun connectionStatus(): String? = when (val state = connection.state) {
+    private fun connectionStatus(pairingStatus: PairingStatusResult?): String? = when (pairingStatus) {
+        is PairingStatusResult.Accepted -> Localization.getString("connection_pairing_accepted")
+        else -> when (val state = connection.state) {
         is ConnectionState.PairingPending -> Localization.getString("connection_pairing_pending")
         is ConnectionState.Rejected -> Localization.getString(state.failure.localizationKey)
         else -> null
+        }
     }
 
 }
