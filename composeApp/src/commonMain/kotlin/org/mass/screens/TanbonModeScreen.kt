@@ -116,6 +116,7 @@ object TanbonModeScreen : Screen {
                                     position = CombatButtonPositions.LEFT,
                                     color = Colors.BLUE,
                                     icon = Res.drawable.kerugi_helmet,
+                                    semanticLabel = Localization.getString("combat_blue_head"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -125,6 +126,7 @@ object TanbonModeScreen : Screen {
                                     position = CombatButtonPositions.RIGHT,
                                     color = Colors.RED,
                                     icon = Res.drawable.kerugi_helmet,
+                                    semanticLabel = Localization.getString("combat_red_head"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -139,6 +141,7 @@ object TanbonModeScreen : Screen {
                                     position = CombatButtonPositions.LEFT,
                                     color = Colors.BLUE,
                                     icon = Res.drawable.tanbon_body,
+                                    semanticLabel = Localization.getString("combat_blue_body"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -148,6 +151,7 @@ object TanbonModeScreen : Screen {
                                     position = CombatButtonPositions.CENTER,
                                     color = Colors.GRAY,
                                     icon = Res.drawable.tanbon_cross,
+                                    semanticLabel = Localization.getString("combat_cross"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -157,6 +161,7 @@ object TanbonModeScreen : Screen {
                                     position = CombatButtonPositions.RIGHT,
                                     color = Colors.RED,
                                     icon = Res.drawable.tanbon_body,
+                                    semanticLabel = Localization.getString("combat_red_body"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)

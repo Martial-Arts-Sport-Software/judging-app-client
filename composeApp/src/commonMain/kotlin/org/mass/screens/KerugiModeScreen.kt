@@ -114,6 +114,7 @@ object KerugiModeScreen : Screen {
                                     position = CombatButtonPositions.LEFT,
                                     color = Colors.BLUE,
                                     icon = Res.drawable.kerugi_helmet,
+                                    semanticLabel = Localization.getString("combat_blue_head"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -123,6 +124,7 @@ object KerugiModeScreen : Screen {
                                     position = CombatButtonPositions.RIGHT,
                                     color = Colors.RED,
                                     icon = Res.drawable.kerugi_helmet,
+                                    semanticLabel = Localization.getString("combat_red_head"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -137,6 +139,7 @@ object KerugiModeScreen : Screen {
                                     position = CombatButtonPositions.LEFT,
                                     color = Colors.BLUE,
                                     icon = Res.drawable.kerugi_chestplate,
+                                    semanticLabel = Localization.getString("combat_blue_body"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
@@ -146,6 +149,7 @@ object KerugiModeScreen : Screen {
                                     position = CombatButtonPositions.RIGHT,
                                     color = Colors.RED,
                                     icon = Res.drawable.kerugi_chestplate,
+                                    semanticLabel = Localization.getString("combat_red_body"),
                                     onclick = {},
                                     modifier = Modifier
                                         .weight(1f)
